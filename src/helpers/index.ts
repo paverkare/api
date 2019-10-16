@@ -37,5 +37,11 @@ export const schema =  {
         type: Joi.array().items(Joi.string()).required(),
         price: Joi.number(),
         image: Joi.string().trim().uri().required()
+    }),
+    registerSchema: Joi.object().keys({
+        email: Joi.string().trim().email().required(),
+        password: Joi.string().min(4).required(),
+        firstName: Joi.string().trim().required(),
+        lastName: Joi.string().trim().required()
     })
 };
