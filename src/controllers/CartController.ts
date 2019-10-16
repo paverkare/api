@@ -14,7 +14,7 @@ class CartController{
         const value = await UserModel.findById(user_id).then((returnvalue: any) =>{
             for( let i = 0; i < returnvalue.cart.length;i++){
                 if(returnvalue.cart[i] == custom_id)
-                    returnvalue.cart.pop(i);
+                    returnvalue.cart.splice(i,1);
                     break;
             }
             return returnvalue;
