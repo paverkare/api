@@ -23,7 +23,7 @@ class Router {
         this.router.use('/product', productRouter);
         this.router.use('/custom', customRouter);
         this.router.use('/insta', instaRouter);
-        this.router.use('/category', categoryRouter);
+        this.router.use('/category', categoryRouter)
     }
 }
 
