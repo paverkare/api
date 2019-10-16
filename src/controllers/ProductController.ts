@@ -13,10 +13,30 @@ class ProductController {
         return ProductModel.findOne({_id: id});
     }
 
-    create(name: string, type: mongoose.Types.ObjectId, size: number, color: string, image: string) {
+    create(name: string, type: mongoose.Types.ObjectId, size: number, color: string, image: string): Promise<IProduct>{
         return ProductModel.create({
             name, type, size, color, image
         });
+    }
+
+    update(id: string, product: IProduct): DocumentQuery<IProduct | null, IProduct> {
+        return ProductModel.findOneAndUpdate(
+            {
+                _id: id
+            },
+            {
+                $set: product
+            }, {
+                new: true
+            }
+        );
+    }
+
+
+    delete(id: string) {
+        return ProductModel.deleteOne({
+            _id: id
+        })
     }
 
 }

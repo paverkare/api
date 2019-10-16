@@ -27,7 +27,7 @@ export const schema =  {
     }),
     productSchema: Joi.object().keys({
         name: Joi.string().trim().required(),
-        type: Joi.string().trim().min(12).max(12).required(),
+        type: Joi.string().trim().required(),
         size: Joi.number(),
         color: Joi.string().trim(),
         image: Joi.string().trim().uri().required()

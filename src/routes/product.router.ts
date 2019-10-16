@@ -28,11 +28,31 @@ router.get('', async (req, res) => {
 router.post('/', validateBody(schema.productSchema), async (req, res) => {
     try {
         const product = req.body;
-        const result = await ProductController
+        const newProduct = await ProductController
             .create(product.name, mongoose.Types.ObjectId(product.type), product.size, product.color, product.image);
-        res.json(result);
+        res.json(newProduct);
     } catch (e) {
         res.status(500).end();
+    }
+});
+
+router.put('/:id', async (req, res) => {
+    try {
+        const product = await ProductController
+            .update(req.params.id, req.body);
+
+        res.json(product);
+    } catch (e) {
+        res.status(404).end();
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    try {
+        const oldProduct = await ProductController.delete(req.params.id);
+        res.status(201).end();
+    } catch (e) {
+        res.status(404).end();
     }
 });
 
