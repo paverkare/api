@@ -7,8 +7,9 @@ import mongoCo from './config/mongoConnection';
 import morgan from 'morgan';
 import cors from 'cors';
 import bodyParser from "body-parser";
-import {ProductModel, UserModel} from "./models";
+import {CustomModel, ProductModel, UserModel} from "./models";
 import category from "./models/category";
+import * as mongoose from "mongoose";
 
 
 mongoCo.then( db => {
@@ -30,4 +31,13 @@ const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
     console.log(`Server listening on port ${ port }`);
+});
+
+var customProduct = new CustomModel({name: 'test', type:'5da6dc93e322643c887444d0', price: 59, image: 'test' });
+
+customProduct.save(function (err) {
+    if (err) { throw err; }
+    console.log('Commentaire ajouté avec succès !');
+    // On se déconnecte de MongoDB maintenant
+   // mongoose.connection.close();
 });
