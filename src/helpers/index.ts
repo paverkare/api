@@ -24,5 +24,12 @@ export const schema =  {
     loginSchema: Joi.object().keys({
         email: Joi.string().trim().email().required(),
         password: Joi.string().min(4).required(),
+    }),
+    productSchema: Joi.object().keys({
+        name: Joi.string().trim().required(),
+        type: Joi.string().trim().required(),
+        size: Joi.number(),
+        color: Joi.string().trim(),
+        image: Joi.string().trim().uri().required()
     })
 };
