@@ -15,8 +15,6 @@ mongoCo.then( db => {
     return db;
 });
 
-
-
 const app  = express();
 
 app.use(morgan('dev'));
