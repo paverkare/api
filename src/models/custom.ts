@@ -3,7 +3,7 @@ import {IProduct} from "./product";
 
 export interface ICustom extends Document{
     name: string,
-    type: IProduct['id'],
+    type: IProduct['id'][],
     price: number,
     image: String,
 }
@@ -13,7 +13,6 @@ const customSchema = new Schema({
     type: [{ type: Schema.Types.ObjectId, ref: 'Product'}],
     price: {type: Number, required: true},
     image: {type: String, required: true, unique: true},
-
 });
 
 
