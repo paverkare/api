@@ -1,5 +1,6 @@
 import express from 'express';
 import authRouter from './auth.router';
+import userRouter from './user.router';
 
 
 class Router {
@@ -15,6 +16,7 @@ class Router {
     private build(): void {
 
         this.router.use('/auth', authRouter);
+        this.router.use('/user', userRouter);
     }
 }
 
