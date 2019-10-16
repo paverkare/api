@@ -21,15 +21,17 @@ router.get('/:user_id/wishlist', async (req, res) => {
         const wishlist = await WishlistController.getUserWishlist(mongoose.Types.ObjectId(req.params.user_id))
         res.json(wishlist);
     } catch (e) {
+        console.log(e)
         res.status(500).end();
     }
 });
 
 router.delete('/:user_id/wishlist/:custom_id', async (req, res) => {
     try {
-        const wishlist = await WishlistController.delete(mongoose.Types.ObjectId(req.params.user_id), mongoose.Types.ObjectId(req.params.custom_id))
+        const wishlist = await WishlistController.delete(mongoose.Types.ObjectId(req.params.user_id), req.params.custom_id)
         res.json(wishlist);
     } catch (e) {
+        console.log(e)
         res.status(500).end();
     }
 });

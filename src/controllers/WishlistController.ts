@@ -1,6 +1,6 @@
 import {DocumentQuery, Schema} from "mongoose";
 import * as mongoose from "mongoose";
-import {IUser} from "../models/user";
+import user, {IUser} from "../models/user";
 import {UserModel} from "../models";
 
 
@@ -10,8 +10,27 @@ class WishlistController{
         return UserModel.findById(id,'wishList');
     }
 
-    delete(user_id: mongoose.Types.ObjectId, custom_id:mongoose.Types.ObjectId ) {
-        return UserModel.updateOne({ _id: user_id },{ $pull:{wishList :{ $in: ["5da709a86a1c320a7855cb29"]} }});
+    async delete(user_id: mongoose.Types.ObjectId, custom_id:string) {
+        console.log(custom_id)
+        //return UserModel.update({ _id: user_id },{ $pull: { wishList :{ $in : "sida"} }});
+        const value = await UserModel.findById(user_id).then((returnvalue: any) =>{
+            for( let i in returnvalue.wishList){
+                if(returnvalue.wishList[i] == custom_id)
+                    returnvalue.wishList.pop(i);
+                    break;
+            }
+            return returnvalue;
+        })
+        return await UserModel.findOneAndUpdate(
+            {
+                _id: user_id
+            },
+            {
+                $set: value
+            }, {
+                new: true
+            }
+        );
     }
 
     create(name: string): Promise<IUser>{
