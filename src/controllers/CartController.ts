@@ -6,8 +6,10 @@ import {UserModel} from "../models";
 
 class CartController{
 
-    getUserCart(id: mongoose.Types.ObjectId): DocumentQuery<IUser | null, IUser> {
-        return UserModel.findById(id,'cart');
+    getUserCart(id: mongoose.Types.ObjectId) {
+        return UserModel.findById(id,'cart').populate('cart').then((data:any) => {
+            return data.cart;
+        });
     }
 
     async delete(user_id: mongoose.Types.ObjectId, custom_id:string) {
