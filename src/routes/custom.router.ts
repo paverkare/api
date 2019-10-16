@@ -1,8 +1,6 @@
 import express from 'express';
 import {schema, validateBody} from "../helpers";
 import CustomController from "../controllers/CustomController";
-
-import {mongo, Schema} from "mongoose";
 import mongoose from "mongoose";
 
 
@@ -30,10 +28,6 @@ router.post('/', validateBody(schema.customSchema), async (req, res) => {
     try {
         const customProduct = req.body;
         console.log(customProduct.type);
-        /*const typeProduct = customProduct.type.map((c: any) => {
-            return  mongoose.Types.ObjectId(c)
-        });
-        */
         const result = await CustomController
             .create(customProduct.name, customProduct.type, customProduct.price, customProduct.image);
         res.json(result);

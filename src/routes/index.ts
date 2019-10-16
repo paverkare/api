@@ -15,8 +15,6 @@ class Router {
     }
 
     private build(): void {
-
-        //this.router.use('/test', testRouter);
         this.router.use('/auth', authRouter);
         this.router.use('/product', productRouter);
         this.router.use('/custom', customRouter);
