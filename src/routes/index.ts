@@ -1,6 +1,7 @@
 import express from 'express';
 import authRouter from './auth.router';
 import productRouter from'./product.router'
+import customRouter from'./custom.router'
 
 
 class Router {
@@ -18,6 +19,7 @@ class Router {
         //this.router.use('/test', testRouter);
         this.router.use('/auth', authRouter);
         this.router.use('/product', productRouter);
+        this.router.use('/custom', customRouter);
     }
 }
 

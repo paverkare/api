@@ -33,7 +33,8 @@ app.listen(port, () => {
     console.log(`Server listening on port ${ port }`);
 });
 
-var customProduct = new CustomModel({name: 'test', type:'5da6dc93e322643c887444d0', price: 59, image: 'test' });
+/*
+var customProduct = new CustomModel({name: 'test24', type:['5da6dc93e322643c887444d0'], price: 59, image: 'http://testt.frrr' });
 
 customProduct.save(function (err) {
     if (err) { throw err; }
@@ -41,3 +42,4 @@ customProduct.save(function (err) {
     // On se déconnecte de MongoDB maintenant
    // mongoose.connection.close();
 });
+*/

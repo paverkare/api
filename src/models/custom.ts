@@ -10,7 +10,9 @@ export interface ICustom extends Document{
 
 const customSchema = new Schema({
     name: {type: String, required: true, unique: true},
-    type: [{ type: Schema.Types.ObjectId, ref: 'Product'}],
+    type: [{ type: Schema.Types.ObjectId,
+            ref: 'Product'
+    }],
     price: {type: Number, required: true},
     image: {type: String, required: true, unique: true},
 });
