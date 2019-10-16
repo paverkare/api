@@ -37,5 +37,8 @@ export const schema =  {
         type: Joi.array().items(Joi.string()).required(),
         price: Joi.number(),
         image: Joi.string().trim().uri().required()
+    }),
+    categorySchema: Joi.object().keys({
+        name: Joi.string().trim().required()
     })
 };

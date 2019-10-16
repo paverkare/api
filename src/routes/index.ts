@@ -4,6 +4,7 @@ import userRouter from './user.router';
 import productRouter from'./product.router'
 import instaRouter from './insta.router';
 import customRouter from'./custom.router'
+import categoryRouter from './category.router'
 
 
 class Router {
@@ -22,6 +23,7 @@ class Router {
         this.router.use('/product', productRouter);
         this.router.use('/custom', customRouter);
         this.router.use('/insta', instaRouter);
+        this.router.use('/category', categoryRouter);
     }
 }
 
