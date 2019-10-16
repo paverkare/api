@@ -2,6 +2,7 @@ import express from 'express';
 import authRouter from './auth.router';
 import userRouter from './user.router';
 import productRouter from'./product.router'
+import instaRouter from './insta.router';
 
 
 class Router {
@@ -19,6 +20,7 @@ class Router {
         this.router.use('/auth', authRouter);
         this.router.use('/user', userRouter);
         this.router.use('/product', productRouter);
+        this.router.use('/insta', instaRouter);
     }
 }
 
