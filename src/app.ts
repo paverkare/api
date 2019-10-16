@@ -7,8 +7,9 @@ import mongoCo from './config/mongoConnection';
 import morgan from 'morgan';
 import cors from 'cors';
 import bodyParser from "body-parser";
-import {ProductModel, UserModel} from "./models";
+import {CustomModel, ProductModel, UserModel} from "./models";
 import category from "./models/category";
+import * as mongoose from "mongoose";
 
 
 mongoCo.then( db => {

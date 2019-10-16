@@ -3,6 +3,7 @@ import authRouter from './auth.router';
 import userRouter from './user.router';
 import productRouter from'./product.router'
 import instaRouter from './insta.router';
+import customRouter from'./custom.router'
 
 
 class Router {
@@ -16,10 +17,10 @@ class Router {
     }
 
     private build(): void {
-
         this.router.use('/auth', authRouter);
         this.router.use('/user', userRouter);
         this.router.use('/product', productRouter);
+        this.router.use('/custom', customRouter);
         this.router.use('/insta', instaRouter);
     }
 }
