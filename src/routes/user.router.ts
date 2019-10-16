@@ -31,7 +31,15 @@ router.delete('/:user_id/wishlist/:custom_id', async (req, res) => {
         const wishlist = await WishlistController.delete(mongoose.Types.ObjectId(req.params.user_id), req.params.custom_id)
         res.json(wishlist);
     } catch (e) {
-        console.log(e)
+        res.status(500).end();
+    }
+});
+
+router.post('/:user_id/wishlist', async (req, res) => {
+    try {
+        const wishlist = await WishlistController.addToWishList(mongoose.Types.ObjectId(req.params.user_id), req.body.custom_id)
+        res.json(wishlist);
+    } catch (e) {
         res.status(500).end();
     }
 });
