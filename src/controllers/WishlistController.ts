@@ -6,8 +6,10 @@ import {UserModel} from "../models";
 
 class WishlistController{
 
-    getUserWishlist(id: mongoose.Types.ObjectId): DocumentQuery<IUser | null, IUser> {
-        return UserModel.findById(id,'wishList');
+    getUserWishlist(id: mongoose.Types.ObjectId){
+        return UserModel.findById(id,'wishList').populate('wishList').then((data:any) => {
+            return data.wishList;
+        });
     }
 
     async delete(user_id: mongoose.Types.ObjectId, custom_id:string) {
@@ -16,7 +18,7 @@ class WishlistController{
         const value = await UserModel.findById(user_id).then((returnvalue: any) =>{
             for( let i = 0; i < returnvalue.wishList.length;i++){
                 if(returnvalue.wishList[i] == custom_id)
-                    returnvalue.wishList.pop(i);
+                    returnvalue.wishList.splice(i,1);
                     break;
             }
             return returnvalue;
