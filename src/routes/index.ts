@@ -1,6 +1,6 @@
 import express from 'express';
-import testRouter from './test.router';
 import authRouter from './auth.router';
+import productRouter from'./product.router'
 
 
 class Router {
@@ -17,6 +17,7 @@ class Router {
 
         //this.router.use('/test', testRouter);
         this.router.use('/auth', authRouter);
+        this.router.use('/product', productRouter);
     }
 }
 
