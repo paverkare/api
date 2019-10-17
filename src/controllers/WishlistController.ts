@@ -8,6 +8,8 @@ class WishlistController{
 
     getUserWishlist(id: mongoose.Types.ObjectId){
         return UserModel.findById(id,'wishList').populate('wishList').then((data:any) => {
+            if(!data)
+                return null;
             return data.wishList;
         });
     }
