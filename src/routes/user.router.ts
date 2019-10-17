@@ -1,10 +1,9 @@
 import express from 'express';
-import passport from '../passport'
-import {schema, validateBody} from "../helpers";
+import passport from '../passport';
 import WishlistController from "../controllers/WishlistController";
 import CartController from "../controllers/CartController";
-import {IUser} from "../models/user";
-import mongoose from 'mongoose'
+import OrderController from "../controllers/OrderController";
+var mongoose = require('mongoose');
 
 
 const router = express.Router();
@@ -19,10 +18,9 @@ router.get('/me', passportJwt, (req, res) => {
     return res.status(200).json({user: req.user});
 });
 
-router.get('/wishlist', passportJwt, async (req, res) => {
+router.get('/:user_id/wishlist', async (req, res) => {
     try {
-
-        const wishlist = await WishlistController.getUserWishlist(mongoose.Types.ObjectId((req.user as IUser).id));
+        const wishlist = await WishlistController.getUserWishlist(mongoose.Types.ObjectId(req.params.user_id))
         if(!wishlist)
             res.status(404).end();
         res.json(wishlist);
@@ -53,6 +51,8 @@ router.post('/:user_id/wishlist', async (req, res) => {
 router.get('/:user_id/cart', async (req, res) => {
     try {
         const cart = await CartController.getUserCart(mongoose.Types.ObjectId(req.params.user_id))
+        if(!cart)
+            res.status(404).end();
         res.json(cart);
     } catch (e) {
         console.log(e)
@@ -74,6 +74,19 @@ router.post('/:user_id/cart', async (req, res) => {
         const cart = await CartController.addToCart(mongoose.Types.ObjectId(req.params.user_id), req.body.custom_id)
         res.json(cart);
     } catch (e) {
+        res.status(500).end();
+    }
+});
+
+router.get('/:user_id/order', async (req, res) => {
+    try {
+        const order = await OrderController.getOrder(mongoose.Types.ObjectId(req.params.user_id))
+        console.log(order)
+        if(!order)
+            res.status(404).end();
+        res.json(order);
+    } catch (e) {
+        console.log(e)
         res.status(500).end();
     }
 });
