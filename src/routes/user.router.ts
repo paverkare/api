@@ -32,9 +32,9 @@ router.get('/wishlist', passportJwt, async (req, res) => {
     }
 });
 
-router.delete('/:user_id/wishlist/:custom_id', async (req, res) => {
+router.delete('/wishlist/:custom_id', passportJwt,async (req, res) => {
     try {
-        const wishlist = await WishlistController.delete(mongoose.Types.ObjectId(req.params.user_id), req.params.custom_id)
+        const wishlist = await WishlistController.delete(mongoose.Types.ObjectId((req.user as IUser).id), req.params.custom_id);
         res.json(wishlist);
     } catch (e) {
         res.status(500).end();

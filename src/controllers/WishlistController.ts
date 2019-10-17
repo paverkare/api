@@ -19,9 +19,11 @@ class WishlistController{
         //return UserModel.update({ _id: user_id },{ $pull: { wishList :{ $in : "sida"} }});
         const value = await UserModel.findById(user_id).then((returnvalue: any) =>{
             for( let i = 0; i < returnvalue.wishList.length;i++){
-                if(returnvalue.wishList[i] == custom_id)
+                if(returnvalue.wishList[i] == custom_id) {
                     returnvalue.wishList.splice(i,1);
                     break;
+                }
+
             }
             return returnvalue;
         })
