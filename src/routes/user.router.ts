@@ -41,18 +41,18 @@ router.delete('/wishlist/:custom_id', passportJwt,async (req, res) => {
     }
 });
 
-router.post('/:user_id/wishlist', async (req, res) => {
+router.post('/wishlist', passportJwt, async (req, res) => {
     try {
-        const wishlist = await WishlistController.addToWishList(mongoose.Types.ObjectId(req.params.user_id), req.body.custom_id)
+        const wishlist = await WishlistController.addToWishList(mongoose.Types.ObjectId((req.user as IUser).id), req.body.custom_id);
         res.json(wishlist);
     } catch (e) {
         res.status(500).end();
     }
 });
 
-router.get('/:user_id/cart', async (req, res) => {
+router.get('/cart', passportJwt, async (req, res) => {
     try {
-        const cart = await CartController.getUserCart(mongoose.Types.ObjectId(req.params.user_id))
+        const cart = await CartController.getUserCart(mongoose.Types.ObjectId((req.user as IUser).id));
         res.json(cart);
     } catch (e) {
         console.log(e)
@@ -60,18 +60,18 @@ router.get('/:user_id/cart', async (req, res) => {
     }
 });
 
-router.delete('/:user_id/cart/:custom_id', async (req, res) => {
+router.delete('/cart/:custom_id', passportJwt, async (req, res) => {
     try {
-        const cart = await CartController.delete(mongoose.Types.ObjectId(req.params.user_id), req.params.custom_id)
+        const cart = await CartController.delete(mongoose.Types.ObjectId((req.user as IUser).id), req.params.custom_id);
         res.json(cart);
     } catch (e) {
         res.status(500).end();
     }
 });
 
-router.post('/:user_id/cart', async (req, res) => {
+router.post('/cart', passportJwt, async (req, res) => {
     try {
-        const cart = await CartController.addToCart(mongoose.Types.ObjectId(req.params.user_id), req.body.custom_id)
+        const cart = await CartController.addToCart(mongoose.Types.ObjectId((req.user as IUser).id), req.body.custom_id);
         res.json(cart);
     } catch (e) {
         res.status(500).end();
