@@ -91,4 +91,13 @@ router.get('/:user_id/order', async (req, res) => {
     }
 });
 
+router.post('/:user_id/order', async (req, res) => {
+    try {
+        const cart = await OrderController.addToOrder(mongoose.Types.ObjectId(req.params.user_id), req.body.custom_id)
+        res.json(cart);
+    } catch (e) {
+        res.status(500).end();
+    }
+});
+
 export default router;

@@ -14,8 +14,8 @@ class OrderController{
         });
     }
 
-    async addToCart(user_id: mongoose.Types.ObjectId, custom_id:string){
-        await UserModel.findByIdAndUpdate(user_id, {$push: {cart: custom_id}});
+    async addToOrder(user_id: mongoose.Types.ObjectId, custom_id:string){
+        await UserModel.findByIdAndUpdate(user_id, {$push: {order: custom_id}});
         return UserModel.findById(user_id);
     }
 }
