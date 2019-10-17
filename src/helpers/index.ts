@@ -38,6 +38,9 @@ export const schema =  {
         price: Joi.number(),
         image: Joi.string().trim().uri().required()
     }),
+    categorySchema: Joi.object().keys({
+        name: Joi.string().trim().required()
+    }),
     registerSchema: Joi.object().keys({
         email: Joi.string().trim().email().required(),
         password: Joi.string().min(4).required(),
