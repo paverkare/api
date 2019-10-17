@@ -20,6 +20,8 @@ router.get('/me', passportJwt, (req, res) => {
 router.get('/:user_id/wishlist', async (req, res) => {
     try {
         const wishlist = await WishlistController.getUserWishlist(mongoose.Types.ObjectId(req.params.user_id))
+        if(!wishlist)
+            res.status(404).end();
         res.json(wishlist);
     } catch (e) {
         console.log(e)

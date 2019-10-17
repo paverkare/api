@@ -8,6 +8,8 @@ class CartController{
 
     getUserCart(id: mongoose.Types.ObjectId) {
         return UserModel.findById(id,'cart').populate('cart').then((data:any) => {
+            if(!data)
+                return null;
             return data.cart;
         });
     }
