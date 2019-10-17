@@ -10,7 +10,8 @@ export interface IUser extends Document{
     password: string,
     verifyPassword: (password: string ) => boolean,
     wishList: ICustom['id'][],
-    cart: ICustom['id'][]
+    cart: ICustom['id'][],
+    order: ICustom['id'][]
 }
 
 const userSchema = new Schema({
@@ -19,7 +20,8 @@ const userSchema = new Schema({
     lastName: {type: String, required: true},
     password: {type: String, required: true},
     wishList: [{type: Schema.Types.ObjectId, ref:'Custom', required: true}],
-    cart: [{type: Schema.Types.ObjectId, ref:'Custom', required: true}]
+    cart: [{type: Schema.Types.ObjectId, ref:'Custom', required: true}],
+    order: [{type: Schema.Types.ObjectId, ref:'Custom', required: true}]
 });
 
 userSchema.pre('save', function(this: IUser, next) {
