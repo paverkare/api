@@ -3,6 +3,7 @@ import passport from '../passport';
 import WishlistController from "../controllers/WishlistController";
 import CartController from "../controllers/CartController";
 import OrderController from "../controllers/OrderController";
+import {IUser} from "../models/user";
 var mongoose = require('mongoose');
 
 
@@ -18,9 +19,9 @@ router.get('/me', passportJwt, (req, res) => {
     return res.status(200).json({user: req.user});
 });
 
-router.get('/:user_id/wishlist', async (req, res) => {
+router.get('/wishlist', async (req, res) => {
     try {
-        const wishlist = await WishlistController.getUserWishlist(mongoose.Types.ObjectId(req.params.user_id))
+        const wishlist = await WishlistController.getUserWishlist(mongoose.Types.ObjectId((req.user as IUser).id));
         if(!wishlist)
             res.status(404).end();
         res.json(wishlist);
