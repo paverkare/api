@@ -21,6 +21,9 @@ passport.use(new LocalStrategy({
 
             const passwordVerify = await user.verifyPassword(password);
 
+            console.log(password);
+            console.log(passwordVerify);
+
             if(!passwordVerify)
 
                 return cb(null, false, {
@@ -62,4 +65,5 @@ passport.use(new JwtStrategy({
     }
 }));
 
+// We export the passport configure to use them on route file
 export default passport;
