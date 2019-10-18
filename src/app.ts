@@ -7,9 +7,8 @@ import mongoCo from './config/mongoConnection';
 import morgan from 'morgan';
 import cors from 'cors';
 import bodyParser from "body-parser";
-import {CustomModel, ProductModel, UserModel} from "./models";
-import category from "./models/category";
 import * as mongoose from "mongoose";
+import {ProductModel, CategoryModel} from "./models";
 
 
 mongoCo.then( db => {
@@ -25,7 +24,6 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors());
 app.use('/api', router);
-
 
 const port = process.env.PORT || 3000;
 

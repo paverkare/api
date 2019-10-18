@@ -2,6 +2,7 @@ import {DocumentQuery, Schema} from "mongoose";
 import * as mongoose from "mongoose";
 import user, {IUser} from "../models/user";
 import {UserModel} from "../models";
+import {ICustom} from "../models/custom";
 
 
 class WishlistController{
@@ -37,8 +38,8 @@ class WishlistController{
         );
     }
 
-    async addToWishList(user_id: mongoose.Types.ObjectId, custom_id:string){
-        await UserModel.findByIdAndUpdate(user_id, {$push: {wishList: custom_id}});
+    async addToWishList(user_id: mongoose.Types.ObjectId, custom: ICustom){
+        await UserModel.findByIdAndUpdate(user_id, {$push: {wishList: custom.get('id')}});
         return UserModel.findById(user_id);
     }
 }

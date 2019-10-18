@@ -24,6 +24,10 @@ class CustomController{
         return CustomModel.deleteOne(deleteCustom);
     }
 
+    searchCustom(idBracelet: string, idCadran: string) {
+
+        return CustomModel.findOne({ $and: [ { type: { $in: [idBracelet] } }, { type: { $in: [idCadran] } } ] });
+    }
 }
 
 export default new CustomController();

@@ -6,7 +6,7 @@ import * as mongoose from "mongoose";
 class ProductController {
 
     getAll(): DocumentQuery<IProduct[], IProduct> {
-        return ProductModel.find();
+        return ProductModel.find().populate('type', 'name');
     }
 
     getById(id: mongoose.Types.ObjectId): DocumentQuery<IProduct | null, IProduct> {

@@ -5,6 +5,8 @@ import WishlistController from "../controllers/WishlistController";
 import CartController from "../controllers/CartController";
 import {IUser} from "../models/user";
 import mongoose from 'mongoose'
+import CustomController from "../controllers/CustomController";
+import {ICustom} from "../models/custom";
 
 
 const router = express.Router();
@@ -41,18 +43,21 @@ router.delete('/:user_id/wishlist/:custom_id', async (req, res) => {
     }
 });
 
-router.post('/:user_id/wishlist', async (req, res) => {
+router.post('/wishlist', passportJwt, async (req, res) => {
     try {
-        const wishlist = await WishlistController.addToWishList(mongoose.Types.ObjectId(req.params.user_id), req.body.custom_id)
+        const customId = await CustomController.searchCustom(req.body.idBracelet, req.body.idCadran);
+        const wishlist = await WishlistController.addToWishList(mongoose.Types.ObjectId((req.user as IUser).id), customId as ICustom);
+
         res.json(wishlist);
     } catch (e) {
+        console.log(e);
         res.status(500).end();
     }
 });
 
 router.get('/:user_id/cart', async (req, res) => {
     try {
-        const cart = await CartController.getUserCart(mongoose.Types.ObjectId(req.params.user_id))
+        const cart = await CartController.getUserCart(mongoose.Types.ObjectId(req.params.user_id));
         res.json(cart);
     } catch (e) {
         console.log(e)
