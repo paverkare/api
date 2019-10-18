@@ -18,8 +18,10 @@ mongoCo.then( db => {
 });
 
 const app  = express();
+if (process.env.NODE_ENV == 'test') {
 
-app.use(morgan('dev'));
+    app.use(morgan('dev'));
+}
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors());
