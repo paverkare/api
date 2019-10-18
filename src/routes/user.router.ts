@@ -8,8 +8,6 @@ import mongoose from 'mongoose'
 import CustomController from "../controllers/CustomController";
 import {ICustom} from "../models/custom";
 
-var mongoose = require('mongoose');
-
 
 const router = express.Router();
 const passportJwt = passport.authenticate('jwt', {session: false});
