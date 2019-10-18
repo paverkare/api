@@ -4,6 +4,7 @@ import WishlistController from "../controllers/WishlistController";
 import CartController from "../controllers/CartController";
 import OrderController from "../controllers/OrderController";
 import {IUser} from "../models/user";
+
 var mongoose = require('mongoose');
 
 
@@ -12,17 +13,17 @@ const passportJwt = passport.authenticate('jwt', {session: false});
 
 router.get('/me', passportJwt, (req, res) => {
 
-    if(!req.user)
+    if (!req.user)
 
         return res.status(400).json({message: "No user found"});
 
     return res.status(200).json({user: req.user});
 });
 
-router.get('/wishlist', async (req, res) => {
+router.get('/wishlist', passportJwt, async (req, res) => {
     try {
         const wishlist = await WishlistController.getUserWishlist(mongoose.Types.ObjectId((req.user as IUser).id));
-        if(!wishlist)
+        if (!wishlist)
             res.status(404).end();
         res.json(wishlist);
     } catch (e) {
@@ -31,7 +32,7 @@ router.get('/wishlist', async (req, res) => {
     }
 });
 
-router.delete('/wishlist/:custom_id', passportJwt,async (req, res) => {
+router.delete('/wishlist/:custom_id', passportJwt, async (req, res) => {
     try {
         const wishlist = await WishlistController.delete(mongoose.Types.ObjectId((req.user as IUser).id), req.params.custom_id);
         res.json(wishlist);
@@ -52,7 +53,7 @@ router.post('/wishlist', passportJwt, async (req, res) => {
 router.get('/cart', passportJwt, async (req, res) => {
     try {
         const cart = await CartController.getUserCart(mongoose.Types.ObjectId((req.user as IUser).id));
-        if(!cart)
+        if (!cart)
             res.status(404).end();
         res.json(cart);
     } catch (e) {
@@ -79,11 +80,10 @@ router.post('/cart', passportJwt, async (req, res) => {
     }
 });
 
-router.get('/:user_id/order', async (req, res) => {
+router.get('/order', passportJwt, async (req, res) => {
     try {
-        const order = await OrderController.getOrder(mongoose.Types.ObjectId(req.params.user_id))
-        console.log(order)
-        if(!order)
+        const order = await OrderController.getOrder(mongoose.Types.ObjectId((req.user as IUser).id));
+        if (!order)
             res.status(404).end();
         res.json(order);
     } catch (e) {
@@ -92,9 +92,9 @@ router.get('/:user_id/order', async (req, res) => {
     }
 });
 
-router.post('/:user_id/order', async (req, res) => {
+router.post('/order', passportJwt, async (req, res) => {
     try {
-        const cart = await OrderController.addToOrder(mongoose.Types.ObjectId(req.params.user_id), req.body.custom_id)
+        const cart = await OrderController.addToOrder(mongoose.Types.ObjectId((req.user as IUser).id), req.body.custom_id);
         res.json(cart);
     } catch (e) {
         res.status(500).end();
