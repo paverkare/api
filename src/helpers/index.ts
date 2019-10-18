@@ -24,5 +24,27 @@ export const schema =  {
     loginSchema: Joi.object().keys({
         email: Joi.string().trim().email().required(),
         password: Joi.string().min(4).required(),
+    }),
+    productSchema: Joi.object().keys({
+        name: Joi.string().trim().required(),
+        type: Joi.string().trim().required(),
+        size: Joi.number(),
+        color: Joi.string().trim(),
+        image: Joi.string().trim().uri().required()
+    }),
+    customSchema: Joi.object().keys({
+        name: Joi.string().trim().required(),
+        type: Joi.array().items(Joi.string()).required(),
+        price: Joi.number(),
+        image: Joi.string().trim().uri().required()
+    }),
+    categorySchema: Joi.object().keys({
+        name: Joi.string().trim().required()
+    }),
+    registerSchema: Joi.object().keys({
+        email: Joi.string().trim().email().required(),
+        password: Joi.string().min(4).required(),
+        firstName: Joi.string().trim().required(),
+        lastName: Joi.string().trim().required()
     })
 };

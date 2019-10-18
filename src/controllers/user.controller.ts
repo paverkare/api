@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
-import {IUser} from "../models";
+import {IUser, UserModel} from "../models";
+import {HttpException} from "../helpers/HttpException";
 
 class UserController {
 
@@ -15,6 +16,22 @@ class UserController {
     login(user: IUser): string {
 
         return this.signToken(user);
+    }
+
+    async register(email: string, password: string, firstName: string, lastName: string): Promise<IUser> {
+
+        const findUser = await UserModel.findOne({email: email});
+
+        if (findUser)
+
+            throw new HttpException(409, "A user with this email already exits");
+
+        return await UserModel.create({
+            email,
+            password,
+            firstName,
+            lastName
+        });
     }
 }
 
